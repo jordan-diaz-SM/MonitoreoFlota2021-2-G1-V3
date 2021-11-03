@@ -1,5 +1,8 @@
 package monitoreo.modelos;
 
+import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
+import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import monitoreo.modelos.impl.Punto;
 
 public class Ventana extends Application {
 
@@ -27,7 +31,8 @@ public class Ventana extends Application {
         stage.setScene(scene);
 
         // create a MapView to display the map and add it to the stack pane
-        stackPane.getChildren().add(new Mapa().getMapView());
+        Mapa mapaBase = new Mapa();
+        stackPane.getChildren().add(mapaBase.getMapView());
 
         Image img = new Image("https://upload-icon.s3.us-east-2.amazonaws.com/uploads/icons/png/4498062351543238871-512.png");
         ImageView view = new ImageView(img);
@@ -57,6 +62,11 @@ public class Ventana extends Application {
 
         stackPane.getChildren().add(btnNuevo);
 
+        // Agrega el punto
+        Punto puntoInicial = new Punto("Inicio", SimpleMarkerSymbol.Style.CIRCLE, 0xFFFF0000, 10, -12.054901, -77.085470);
+        GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
+        graphicsOverlay.getGraphics().add(puntoInicial.getPunto());
+        mapaBase.getMapView().getGraphicsOverlays().add(graphicsOverlay);
     }
 
 }
