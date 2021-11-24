@@ -4,15 +4,18 @@ import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.SpatialReference;
 import com.esri.arcgisruntime.geometry.SpatialReferences;
 import com.esri.arcgisruntime.mapping.view.Graphic;
+import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
 import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
 import monitoreo.modelos.interfaces.IGrafico;
-import monitoreo.modelos.interfaces.IPuntoMonitoreo;
+import monitoreo.modelos.interfaces.ITipoServicio;
 
 public class Punto implements IGrafico {
 
-    private String tipoPunto;
+    private ITipoServicio servicio;
+    private String descripcionPunto;
     private Graphic punto;
     private static final SpatialReference SPATIAL_REFERENCE = SpatialReferences.getWgs84();
+
     private SimpleMarkerSymbol simbolo;
 
     private Double latitud;
@@ -20,6 +23,14 @@ public class Punto implements IGrafico {
     private SimpleMarkerSymbol.Style estilo;
     private int color;
     private int tamano;
+
+    public Punto(ITipoServicio servicio, Double latitud, Double longitud){
+        this.servicio = servicio;
+
+        SimpleMarkerSymbol circleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, 0xFFFF0000, 10);
+        punto = new Graphic(new Point(longitud, latitud, SPATIAL_REFERENCE), circleSymbol);
+        //graphicsOverlay.getGraphics().add(punto);
+    }
 
     public Punto() {
     }
@@ -61,12 +72,12 @@ public class Punto implements IGrafico {
         this.latitud = latitud;
     }
 
-    public String getTipoPunto() {
-        return tipoPunto;
+    public String getDescripcionPunto() {
+        return descripcionPunto;
     }
 
-    public void setTipoPunto(String tipoPunto) {
-        this.tipoPunto = tipoPunto;
+    public void setDescripcionPunto(String descripcionPunto) {
+        this.descripcionPunto = descripcionPunto;
     }
 
     public int getColor() {
@@ -81,7 +92,7 @@ public class Punto implements IGrafico {
         return getPunto();
     }
 
-    public Graphic getPunto() {
+    private Graphic getPunto() {
         // alertas
         System.out.println("[Punto] Obteniendo Punto para agregarlo al mapa");
         return punto;
@@ -92,5 +103,15 @@ public class Punto implements IGrafico {
 
     }
 
+    @Override
+    public Double getPrecio() {
+        System.out.println("[Punto] Precio del punto 1 $");
+        return 1.0;
+    }
 
+    @Override
+    public void ejecutarServicio() {
+        //System.out.println("[Punto] Ejecutando punto");
+        servicio.ejecutarServicio();
+    }
 }

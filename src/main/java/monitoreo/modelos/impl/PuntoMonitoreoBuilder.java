@@ -6,15 +6,15 @@ import monitoreo.modelos.interfaces.IPuntoMonitoreo;
 
 public class PuntoMonitoreoBuilder implements IPuntoMonitoreo {
     
-    private String tipoPunto;
+    private String descripcionPunto;
     private Double latitud;
     private Double longitud;
     private SimpleMarkerSymbol.Style estilo;
     private int color;
     private int tamano;
 
-    public PuntoMonitoreoBuilder(String tipoPunto)  {
-        this.tipoPunto = tipoPunto;
+    public PuntoMonitoreoBuilder(String descripcionPunto)  {
+        this.descripcionPunto = descripcionPunto;
     }
 
     public PuntoMonitoreoBuilder withSimbolo(SimpleMarkerSymbol.Style estilo, int color, int tamano)  {
@@ -34,7 +34,7 @@ public class PuntoMonitoreoBuilder implements IPuntoMonitoreo {
     public Punto build() {
 
         Punto punto = new Punto();
-        punto.setTipoPunto(this.tipoPunto);
+        punto.setDescripcionPunto(this.descripcionPunto);
         punto.setColor(this.color);
         punto.setEstilo(this.estilo);
         punto.setLatitud(this.latitud);

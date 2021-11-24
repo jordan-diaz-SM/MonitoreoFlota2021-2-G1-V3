@@ -15,6 +15,7 @@ import com.esri.arcgisruntime.mapping.view.MapView;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseButton;
 import javafx.util.Duration;
+import monitoreo.modelos.impl.MapaBaseProxy;
 import monitoreo.modelos.interfaces.IMapa;
 
 public class Mapa implements IMapa {
@@ -35,17 +36,16 @@ public class Mapa implements IMapa {
         mapView = new MapView();
         idVentana++;
 
-        // create an ArcGISMap with the default imagery basemap
-        final ArcGISMap map = new ArcGISMap(Basemap.createImagery());
-
-        // display the map by setting the map on the map view
-        mapView.setMap(map);
+        // create an ArcGISMap basemap
+        MapaBaseProxy proxy = new MapaBaseProxy();
+        proxy.setTipoMapa(2);
+        mapView.setMap(proxy.getMapaBase());
 
         // latitude, longitude, scale
         //Viewpoint viewpoint = new Viewpoint(27.3805833, 33.6321389, 6E3);
-        this.coordenadaXInicial = -12.05462;
-        this.coordenadaYInicial = -77.08396;
-        Viewpoint viewpoint = new Viewpoint(this.coordenadaXInicial, this.coordenadaYInicial, 12000);   // UNMSM
+        this.coordenadaXInicial = -12.05847;
+        this.coordenadaYInicial = -77.08654;
+        Viewpoint viewpoint = new Viewpoint(this.coordenadaXInicial, this.coordenadaYInicial, 12000);   // UNMSM-2
 
         // take 5 seconds to move to viewpoint
         final ListenableFuture<Boolean> viewpointSetFuture = mapView.setViewpointAsync(viewpoint, 5);
