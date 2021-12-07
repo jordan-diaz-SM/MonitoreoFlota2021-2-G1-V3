@@ -62,15 +62,15 @@ public class Ventana extends Application {
         guia.agregarEntrega(new EntregaProgramada("09:00-10:00", "23/11/2021"));
         guia.agregarEntrega(new EntregaProgramada("10:00-11:00", "23/11/2021"));
         guia.agregarEntrega(new EntregaProgramada("12:00-13:00", "23/11/2021"));
-        guia.listarEntrega();
+        //guia.listarEntrega();
 
-        //GuiaEntrega guiaGeneral = new GuiaEntrega();
-        //guiaGeneral.agregarEntrega(new EntregaProgramada("13:00-14:00", "24/11/2021"));
-        //guiaGeneral.agregarEntrega(new EntregaProgramada("15:00-16:00", "24/11/2021"));
-        //guiaGeneral.agregarEntrega(guia);
-        //guiaGeneral.listarEntrega();
+        GuiaEntrega guiaGeneral = new GuiaEntrega();
+        guiaGeneral.agregarEntrega(guia);
+        guiaGeneral.agregarEntrega(new EntregaProgramada("13:00-14:00", "24/11/2021"));
+        guiaGeneral.agregarEntrega(new EntregaProgramada("15:00-16:00", "24/11/2021"));
+        guiaGeneral.listarEntrega();
 
-        System.out.println("[Cliente][Guia General] Costo total "+guia.calcularCosto());
+        System.out.println("[Cliente][Guia General] Costo total "+guiaGeneral.calcularCosto());
 
         // Crear ruta con entrega y recojo
         ITipoServicio recojo = new RecojoTipoServicio();
