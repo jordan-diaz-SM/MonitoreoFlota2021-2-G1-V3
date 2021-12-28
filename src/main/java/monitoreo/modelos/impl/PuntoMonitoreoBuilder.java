@@ -33,7 +33,7 @@ public class PuntoMonitoreoBuilder implements IPuntoMonitoreo {
     @Override
     public Punto build() {
 
-        Punto punto = new Punto();
+        Punto punto = new Recojo(this.longitud, this.latitud);
         punto.setDescripcionPunto(this.descripcionPunto);
         punto.setColor(this.color);
         punto.setEstilo(this.estilo);

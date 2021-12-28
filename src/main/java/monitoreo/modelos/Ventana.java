@@ -76,11 +76,11 @@ public class Ventana extends Application {
         ITipoServicio recojo = new RecojoTipoServicio();
         ITipoServicio entrega = new EntregaTipoServicio();
 
-        Punto puntoRecojo = new Punto(recojo, -12.054901, -77.085470);
+        Punto puntoRecojo = new Recojo(recojo, -12.054901, -77.085470);
         facade.addGraphicsOverlay(puntoRecojo.getGrafico());
         puntoRecojo.ejecutarServicio();
 
-        Punto puntoEntrega = new Punto(entrega,-12.072936, -77.083132);
+        Punto puntoEntrega = new Despacho(entrega,-12.072936, -77.083132);
         facade.addGraphicsOverlay(puntoEntrega.getGrafico());
         puntoEntrega.ejecutarServicio();
         
@@ -97,6 +97,43 @@ public class Ventana extends Application {
         };
         PoliLinea poliEntrega = new PoliLinea(entrega, puntosEntrega);
         facade.addGraphicsOverlay(poliEntrega.getGrafico());
+
+
+        // Strategy, algoritmos de creacion de ruta
+        Double[][] puntos = {
+            {-12.054456, -77.083491},
+            {-12.059279, -77.075558}
+        };
+        Transporte transporteContext = new Transporte();
+        transporteContext.setStrategy(new CamionStrategy());
+        //transporteContext.setStrategy(new MotoStrategy());
+        Double[][] puntosEntregaOptimizado = transporteContext.crearPuntos(puntos);
+        PoliLinea rutaLinea = new PoliLinea(new RecojoTipoServicio(), puntosEntregaOptimizado);
+        facade.addGraphicsOverlay(rutaLinea.getGrafico());
+
+        // Visitor: generar puntos de recojo y entrega 
+        Punto pRecojo = new Recojo(puntos[0][0], puntos[0][1], "UNMSM", "Recoger en la entrada");
+        Punto pEntrega = new Despacho(puntos[1][0], puntos[1][1], "Terapias infantiles", "Despachar libros", "123456798");
+        Punto[] puntosRuta = { pRecojo, pEntrega };
+
+        // Imprimir la informacion visitando cada punto
+        FormatoImpresoVisitor impresorVisitor = new FormatoImpresoVisitor();
+        for (Punto punto : puntosRuta) {
+            punto.acceptImprimir(impresorVisitor);
+        }
+
+
+        // Creacion de una Ruta Concesionada a partir de un Template Method
+        Punto p1 = new Recojo(puntosEntrega[0][0], puntosEntrega[0][1], "Sitio 1", "Recoger del sitio 1");
+        Punto p2 = new Recojo(puntosEntrega[1][0], puntosEntrega[1][1], "Sitio 2", "Recoger del sitio 2");
+        Punto p3 = new Recojo(puntosEntrega[2][0], puntosEntrega[2][1], "Sitio 3", "Recoger del sitio 3");
+        Punto p4 = new Recojo(puntosEntrega[3][0], puntosEntrega[3][1], "Sitio 4", "Recoger del sitio 4");
+        Punto[] puntosTemplate = { p1, p2, p3, p4 };
+
+        RutaTemplate ruta = new RutaPropia();
+        //RutaTemplate ruta = new RutaConcesionada();
+        ruta.generaRuta(puntosTemplate, null);
+
 
         // Dibuja el mapa en la ventana
         facade.stackAddMapView();

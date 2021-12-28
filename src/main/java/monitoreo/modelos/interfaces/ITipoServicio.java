@@ -4,4 +4,5 @@ public interface ITipoServicio {
 
     void ejecutarServicio();
 
+    public int getColor();
 }

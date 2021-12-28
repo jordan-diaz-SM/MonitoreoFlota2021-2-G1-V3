@@ -21,7 +21,7 @@ public class PoliLinea implements IGrafico {
         this.tipoServicio = tipoServicio;
 
         // create a green (0xFF005000) simple line symbol
-        SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, 0xffffff00, 3.0f);
+        SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, this.tipoServicio.getColor(), 3.0f);
         
         // create a new point collection for polygon
         PointCollection points = new PointCollection(SPATIAL_REFERENCE);

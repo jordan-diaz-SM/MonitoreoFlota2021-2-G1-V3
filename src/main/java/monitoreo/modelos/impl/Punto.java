@@ -8,8 +8,9 @@ import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
 import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
 import monitoreo.modelos.interfaces.IGrafico;
 import monitoreo.modelos.interfaces.ITipoServicio;
+import monitoreo.modelos.interfaces.IVisitor;
 
-public class Punto implements IGrafico {
+public abstract class Punto implements IGrafico {
 
     private ITipoServicio servicio;
     private String descripcionPunto;
@@ -30,6 +31,11 @@ public class Punto implements IGrafico {
         SimpleMarkerSymbol circleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, 0xFFFF0000, 10);
         punto = new Graphic(new Point(longitud, latitud, SPATIAL_REFERENCE), circleSymbol);
         //graphicsOverlay.getGraphics().add(punto);
+    }
+
+    public Punto(Double latitud, Double longitud){
+        SimpleMarkerSymbol circleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, 0xFFFF0000, 10);
+        punto = new Graphic(new Point(longitud, latitud, SPATIAL_REFERENCE), circleSymbol);
     }
 
     public Punto() {
@@ -114,4 +120,10 @@ public class Punto implements IGrafico {
         //System.out.println("[Punto] Ejecutando punto");
         servicio.ejecutarServicio();
     }
+
+    public abstract void acceptImprimir(IVisitor visitor);
+
+    public abstract String getDireccion();
+
+    public abstract String getComentarios();
 }
