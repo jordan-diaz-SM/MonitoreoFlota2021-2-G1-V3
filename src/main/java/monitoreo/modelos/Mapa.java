@@ -38,7 +38,7 @@ public class Mapa implements IMapa {
 
         // create an ArcGISMap basemap
         MapaBaseProxy proxy = new MapaBaseProxy();
-        proxy.setTipoMapa(1);
+        proxy.setTipoMapa(0);
         mapView.setMap(proxy.getMapaBase());
 
         // latitude, longitude, scale

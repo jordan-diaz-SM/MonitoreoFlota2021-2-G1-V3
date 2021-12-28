@@ -105,8 +105,8 @@ public class Ventana extends Application {
             {-12.059279, -77.075558}
         };
         Transporte transporteContext = new Transporte();
-        transporteContext.setStrategy(new CamionStrategy());
-        //transporteContext.setStrategy(new MotoStrategy());
+        //transporteContext.setStrategy(new CamionStrategy());
+        transporteContext.setStrategy(new MotoStrategy());
         Double[][] puntosEntregaOptimizado = transporteContext.crearPuntos(puntos);
         PoliLinea rutaLinea = new PoliLinea(new RecojoTipoServicio(), puntosEntregaOptimizado);
         facade.addGraphicsOverlay(rutaLinea.getGrafico());
@@ -130,8 +130,8 @@ public class Ventana extends Application {
         Punto p4 = new Recojo(puntosEntrega[3][0], puntosEntrega[3][1], "Sitio 4", "Recoger del sitio 4");
         Punto[] puntosTemplate = { p1, p2, p3, p4 };
 
-        RutaTemplate ruta = new RutaPropia();
-        //RutaTemplate ruta = new RutaConcesionada();
+        //RutaTemplate ruta = new RutaPropia();
+        RutaTemplate ruta = new RutaConcesionada();
         ruta.generaRuta(puntosTemplate, null);
 
 
