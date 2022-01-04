@@ -13,7 +13,7 @@ public class Server {
 
         RegistroLog.getInstance().log("Iniciando servidor...");
 
-        ArcGISRuntimeEnvironment.setInstallDirectory("C://Aplicaciones//arcgis-runtime-sdk-java-100.9.0");
+        ArcGISRuntimeEnvironment.setInstallDirectory("C://Aplicaciones//arcgis-runtime-sdk-java-100.12.0");
         //ArcGISRuntimeEnvironment.setInstallDirectory("/opt/Apps/arcgis-runtime-sdk-java-100.9.0");
 
         Application.launch(Ventana.class, args);
